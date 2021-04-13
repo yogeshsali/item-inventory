@@ -1,0 +1,75 @@
+﻿@model ReflectionIT.Mvc.Paging.PagingList<WebApp.Models.ItemInventory>
+@using ReflectionIT.Mvc.Paging
+@addTagHelper *, ReflectionIT.Mvc.Paging
+@{
+    ViewData["Title"] = "List";
+}
+
+
+<h1>Inventory List</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-success">Add Item</a>
+</p>
+
+
+<table class="table">
+    <thead>
+        <tr>
+           
+            <th>
+                @Html.DisplayNameFor(model => model.First().item_name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.First().quantity)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.First().min_price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.First().max_price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.First().category_name)
+            </th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                
+                <td>
+                    @Html.DisplayFor(modelItem => item.item_name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.quantity)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.min_price)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.max_price)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.category_name)
+                </td>
+                <td>
+                    @Html.ActionLink(" Edit ", "Create", new { item_id = item.item_id, item_name = item.item_name, cat_id = item.cat_id, quantity = item.quantity, min_level = item.min_price, max_level = item.max_price }, new { @class= "btn btn-info" }) 
+
+                    @Html.ActionLink("Delete", "ItemDelete", new { item_id = item.item_id }, new { @class= "btn btn-danger", onclick = "return confirm('Do you want to delete')" })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+<nav aria-label="Item navigation Paging">
+    <vc:pager paging-list="@Model"></vc:pager>
+</nav>
+
+
+
+
